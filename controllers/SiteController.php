@@ -79,9 +79,12 @@ class SiteController extends Controller
     {
         $article = Article::findOne($id);
 
-        $sideBar =[];
         $query = Article::find();
-        $articles = $query->where('CHAR_LENGTH(title) =' . mb_strlen($article['title']))
+        $articles = $query->where('CHAR_LENGTH(title) = ' 
+        . mb_strlen($article['title']) . ' OR CHAR_LENGTH(title) = ' 
+        . (int) ( mb_strlen($article['title']) + (mb_strlen($article['title'])/10))
+        . ' OR CHAR_LENGTH(title) = ' 
+        . (int) (mb_strlen($article['title']) - (mb_strlen($article['title'])/10)))
         ->limit(5)
         ->all();
 
