@@ -20,4 +20,12 @@ use yii\helpers\Url;
             </div>
         </div>
     </div>
+
+    <?php foreach($articles as $vol):?>
+        <div class="row">
+            <div class="col-lg-4">
+                <p><a class="btn btn-default" href=<? echo Url::toRoute(['site/view', 'id'=>$vol['id']])?>><?echo $vol['title']?> &raquo;</a></p>
+            </div>
+        </div>
+    <?php endforeach?>
 </div>

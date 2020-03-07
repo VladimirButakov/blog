@@ -78,8 +78,16 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $article = Article::findOne($id);
+
+        $sideBar =[];
+        $query = Article::find();
+        $articles = $query->where('CHAR_LENGTH(title) =' . mb_strlen($article['title']))
+        ->limit(5)
+        ->all();
+
         return $this->render('single', [
             'article' => $article,
+            'articles' => $articles,
         ]);
     }
 
