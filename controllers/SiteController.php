@@ -79,6 +79,16 @@ class SiteController extends Controller
     {
         $article = Article::findOne($id);
 
+        $articles = $this->getSideBar($article);
+
+        return $this->render('single', [
+            'article' => $article,
+            'articles' => $articles,
+        ]);
+    }
+
+    private function getSideBar($article) 
+    {
         $query = Article::find();
         $articles = $query->where('CHAR_LENGTH(title) = ' 
         . mb_strlen($article['title']) . ' OR CHAR_LENGTH(title) = ' 
@@ -88,10 +98,7 @@ class SiteController extends Controller
         ->limit(5)
         ->all();
 
-        return $this->render('single', [
-            'article' => $article,
-            'articles' => $articles,
-        ]);
+        return $articles;
     }
 
     /**
